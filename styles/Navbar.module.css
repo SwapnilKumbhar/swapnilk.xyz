@@ -1,0 +1,4 @@
+.button {
+  @apply p-2 mx-2 tracking-wider text-gray-600 uppercase border-b border-dashed;
+  @apply hover:border-solid hover:text-slate-900 hover:border-b-gray-300;
+}

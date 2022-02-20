@@ -1,0 +1,5 @@
+projects:
+  - link: https://github.com/livingstonetech/providence/
+    title: Providence
+    subtitle: Kernel based auditing for Mac, BSD and Linux. Leverages the Audit Subsystem, OpenBSM (eventually) and Apple's Endpoint Security Framework
+    image: 
