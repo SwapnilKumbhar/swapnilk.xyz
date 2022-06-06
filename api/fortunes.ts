@@ -3,14 +3,12 @@ const fortunes = [
   'Technology. Music. Travel. Whatever.',
   "' 1 = 1 --",
   'Drink all the things, hack all the booze!',
-  'Arch, Vim, i3, Kitty.',
   'If you are not very careful, your possessions will possess you.',
   'Looking for an internship for the Summer of 2022.',
   '[object Object]',
   'undefined', // Bet you thought my website was broken ^_^
   'Use headphones for best experience.',
   '`base64 /dev/zero` is such a mood.',
-  'You hate Micro$oft, yet you most probably boot from a PE file.',
   'My opinions are not my own.',
   'These fortunes have been cancelled.',
   'Division is futile. You will be approximated.',
@@ -21,6 +19,8 @@ const fortunes = [
   '* screams internally *',
   "Let's read Paul Allen's fortunes.",
   'Free, as in Freedom.',
+  'LinkedIn is great for my mental health!',
+  'Dayman - Fighter of the Nightman',
 ];
 
 // We want to show the same fortune per session, or else the user will be

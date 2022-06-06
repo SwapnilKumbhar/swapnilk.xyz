@@ -8,19 +8,30 @@ type Props = {
 };
 
 export default function Projects({ projects }: Props) {
-  const projectPreviews = projects.map((p) => (
-    <ProjectPreview
-      image={p.image}
-      link={p.link}
-      title={p.title}
-      subtitle={p.subtitle}
-    />
-  ));
+  const projectPreviews = projects.map((p, i) => {
+    const last = i === projects.length - 1;
+    return (
+      <ProjectPreview
+        key={p.link}
+        image={p.image}
+        link={p.link}
+        title={p.title}
+        subtitle={p.subtitle}
+        last={last}
+      />
+    );
+  });
 
   return (
     <div>
-      <Navbar minimal={false} />
-      {projectPreviews}
+      <Navbar
+        minimal={false}
+        title="Projects"
+        description="List of projects Swapnil has worked on."
+      />
+      <div className="pt-10 md:pt-8">
+        {projectPreviews}
+      </div>
     </div>
   );
 }

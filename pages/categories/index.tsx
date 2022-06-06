@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import Navbar from '../../components/Navbar';
+import styles from '../../styles/common.module.css';
+import { addClasses } from '../../api/styles';
 
 export default function Tags() {
   interface CategoryPreview {
@@ -17,7 +19,7 @@ export default function Tags() {
     },
     {
       title: 'Opinion',
-      subtitle: 'My thoughts on various topics, which may not be taken as fact.',
+      subtitle: 'My thoughts on various topics. Not facts.',
       link: 'opinion',
     },
     {
@@ -34,12 +36,28 @@ export default function Tags() {
 
   const categoryPreviewTag = ({ title, subtitle, link }: CategoryPreview) => (
     <Link href={`/categories/${link}`}>
-      <div className="pl-12 border-b cursor-pointer h-36 hover:border-solid hover:border-gray-300">
-        <h1 className="pt-10 text-3xl font-light">
+      <div className="border-b cursor-pointer hover:border-solid hover:border-gray-300 \
+        lg:pl-12 lg:h-36 \
+        md:pl-8 md:h-28 \
+        sm:pl-4 sm:h-24 \
+        "
+      >
+        <h1 className="pt-2 font-regular text-lg \
+          xl:pt-6 \
+          lg:text-3xl lg:pt-6 \
+          md:text-2xl md:pt-4 \
+          sm:text-xl sm:pt-4 sm:font-light \
+          "
+        >
           {title}
-          .
         </h1>
-        <p className="pt-4 font-light">
+        <p className="pt-2 pb-6 text-xs font-light \
+          xl:text-lg xl:pt-4 \
+          lg:text-lg lg:pt-4 lg:pb-4 \
+          md:text-md md:pt-2 md:pb-2 \
+          sm:text-md sm:pt-2 \
+          "
+        >
           {subtitle}
         </p>
       </div>
@@ -55,7 +73,8 @@ export default function Tags() {
         title="Categories | Swapnil Kumbhar"
         description="All categories of posts."
       />
-      <div className="container px-64 pt-10 mx-auto">
+      <div className={addClasses(styles.gcontainer, 'lg:pt-4', 'md:pt-2')}>
+        <hr className="md:hidden" />
         {categoryPreview}
       </div>
     </div>
