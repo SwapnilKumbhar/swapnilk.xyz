@@ -74,7 +74,6 @@ export default function Tags() {
         description="All categories of posts."
       />
       <div className={addClasses(styles.gcontainer, 'lg:pt-4', 'md:pt-2')}>
-        <hr className="md:hidden" />
         {categoryPreview}
       </div>
     </div>

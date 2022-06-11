@@ -2,7 +2,7 @@ import DefaultProps from '../types';
 
 export function Table({ children }: DefaultProps) {
   return (
-    <table className="w-3/4 mx-auto my-4 table-fixed">
+    <table className="w-3/4 mx-auto table-fixed lg:my-4 md:my-2">
       {children}
     </table>
   );

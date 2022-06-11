@@ -1,5 +1,5 @@
 export default function HorizontalRule() {
   return (
-    <hr className="my-4" />
+    <hr className="lg:my-4 md:my-2" />
   );
 }
