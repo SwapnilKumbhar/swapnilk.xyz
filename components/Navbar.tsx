@@ -31,7 +31,7 @@ export default function Navbar({ minimal, title, description }: Props) {
   const heading = minimal
     ? (
       <Link href="/">
-        <p className="pt-4 pb-4 text-md hover:cursor-pointer">
+        <p className="pt-4 pb-4 text-lg font-regular hover:cursor-pointer">
           Swapnil Kumbhar
         </p>
       </Link>

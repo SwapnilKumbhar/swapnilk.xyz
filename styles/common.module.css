@@ -1,0 +1,16 @@
+/* Common CSS stuff */
+/* TODO:
+ * - Combine font size rendering into a single class
+ * - [MAYBE] Combine top padding into a single class so that it can be used in various components.
+ *
+ */
+
+/* Generic container. Responsive. */
+.gcontainer {
+  @apply container;
+  @apply px-6 mx-auto xl:px-64 lg:px-32 md:px-20 sm:px-6;
+}
+
+.gray-back {
+  @apply bg-gray-500
+}
