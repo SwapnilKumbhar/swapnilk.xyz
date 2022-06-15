@@ -9,7 +9,7 @@ type CodeProps = {
 
 export function CodeBlock({ children }: DefaultProps) {
   return (
-    <pre className="p-4 font-mono bg-gray-50">
+    <pre className="p-4 font-mono text-sm bg-gray-100 md:text-md lg:text-lg">
       {children}
     </pre>
   );
@@ -22,7 +22,7 @@ export function Code({ children, className }: CodeProps) {
   //   language = className.replace('language-', '');
   // }
   return (
-    <div className={`bg-gray-100 ${className}` ?? ''}>
+    <div className={`text-md bg-gray-100 ${className}` ?? ''}>
       {children}
     </div>
   );

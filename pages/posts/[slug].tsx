@@ -7,6 +7,8 @@ import {
 import { GrayMatterData } from '../../api/types';
 import COMPONENTS from '../../components/MDX/Components';
 import Navbar from '../../components/Navbar';
+import styles from '../../styles/common.module.css';
+import { addClasses } from '../../api/styles';
 
 type Props = {
   source: MDXRemoteSerializeResult,
@@ -30,11 +32,20 @@ export default function Page({ source, matter }: Props) {
         title={matter.title}
         description={matter.excerpt}
       />
-      <div className="container px-64 py-12 mx-auto">
-        <div className="text-4xl font-medium text-center">
+      <div className={addClasses(styles.gcontainer, 'lg:pt-4', 'md:pt-2')}>
+        <div className="pt-6 text-4xl font-light \
+        xl:text-5xl \
+        md:text-center md:text-3xl \
+        lg:text-4xl \
+        "
+        >
           {matter.title}
         </div>
-        <div className="pt-6 pb-12 text-sm font-light text-center text-gray-500 border-b border-gray-300">
+        <div className="pt-4 pb-6 text-xs font-light text-gray-500 border-b border-gray-300 \
+          lg:pt-6 lg:pb-8 lg:text-sm md:text-xs \
+          md:text-center md:pb-6 md:pt-4\
+          "
+        >
           {matter.date}
           .
           {' '}

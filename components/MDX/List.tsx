@@ -2,14 +2,14 @@ import DefaultProps from '../types';
 
 export function OrderedList({ children }: DefaultProps) {
   return (
-    <ol className="px-4 py-2 font-light list-decimal list-inside">
+    <ol className="font-light list-decimal list-inside lg:px-4 lg:py-2 md:px-2 md:py-1">
       {children}
     </ol>
   );
 }
 export function UnorderedList({ children }: DefaultProps) {
   return (
-    <ul className="px-4 py-2 font-light list-[square] list-inside">
+    <ul className="lg:px-4 lg:py-2 md:px-2 md:py-1 font-light list-[square] list-inside">
       {children}
     </ul>
   );

@@ -3,10 +3,12 @@ import Image from 'next/image';
 import Navbar from '../components/Navbar';
 import OutLink from '../components/OutLink';
 import home from '../public/home.jpg';
+import styles from '../styles/common.module.css';
+import { addClasses } from '../api/styles';
 
 export default function Home() {
-  const h1Classes = 'text-3xl border-b-2 border-gray-200  py-2';
-  const pClasses = 'pt-4 text-lg';
+  const h1Classes = 'text-lg xl:text-3xl border-b-2 border-gray-200 lg:py-2 md:py-1 md:text-2xl';
+  const pClasses = 'text-sm pt-4 lg:text-lg font-light md:text-md';
   return (
     <div>
       <Head>
@@ -17,7 +19,7 @@ export default function Home() {
         title="Swapnil Kumbhar"
         description="Swapnil Kumbhar&apos;s personal blog. I talk about technology, travel and life."
       />
-      <div className="pt-8 pb-4 text-center">
+      <div className="px-6 pb-4 mx-auto text-center md:pt-6 md:pb-4 lg:pt-8 2xs:pt-2 2xs:pb-2 2xs:px-6">
         <Image
           src={home}
           height={400}
@@ -27,7 +29,8 @@ export default function Home() {
         />
       </div>
 
-      <div className="container px-64 mx-auto font-light">
+      {/* TODO: Remove uses of `addClasses`. */}
+      <div className={addClasses(styles.gcontainer, 'lg:pt-4', 'md:pt-2')}>
         <h1 className={h1Classes}>
           Who am I?
         </h1>
