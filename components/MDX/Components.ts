@@ -17,6 +17,7 @@ import Link from './Link';
 import {
   Table, THead, TBody, Th, Tr, Td,
 } from './Table';
+import Img from './Image';
 
 const COMPONENTS = {
   h1: H1,
@@ -41,6 +42,7 @@ const COMPONENTS = {
   th: Th,
   tr: Tr,
   td: Td,
+  img: Img,
 };
 
 export default COMPONENTS;
