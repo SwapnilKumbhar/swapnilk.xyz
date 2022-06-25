@@ -8,31 +8,112 @@ slug: how-i-built-this
 date: Thu Mar  3 11:51:07 AM MST 2022
 ---
 
+
 # Overview
 
+When I decided that I wanted my own space on the internet, I had two goals in mind with my setup. First, was ease (or convenience). Second, was freedom. The ability of incorporating different technologies without being tied down to one. [MDX](https://mdxjs.org) strikes this balance perfectly for me.
 
-When I decided that I wanted my own space on the internet, I really wanted it to be an outlet of my thoughts or just a place where I could store my notes and observations. Now I am not a web developer, nor am I too enthusiastic about building a very complex portfolio website. However, I do like a level of freedom whenever I work with any software. This is why, I decided to power all my blogs with [MDX](https://mdxjs.com).
+## Why MDX?
 
-## What is MDX?
+MDX expands upon [Markdown](https://en.wikipedia.org/wiki/Markdown) by giving the ability to use React components within Markdown. Markdown, to me, is an _extremely_ easy and fast format to write documentation. MDX strikes the balance perfectly; I can use my dynamic React components with the ease of Markdown. 
 
-Yet another Javascript library? Well, yes, but quite a novel one. I have personally found Markdown a very convenient and expressive way of quickly writing any documentation. MDX allows me to write Markdown __and__ integrate JSX/TSX components within it. That's the level of freedom that really appeals to me :D. 
+## How do I use MDX?
 
-AAAA
+To do this, let's create a simple template. Let's start from a basic TailwindCSS template. The best way to read this post is to have the code for this open in another tab or a text editor. Here's the [code](https://github.com/SwapnilKumbhar/mdxtemplate).
 
-![lol](/images/lol.png)
+```sh
+$ create-next-app --typescript --use-npm --example with-tailwindcss mdxtemplate
+```
 
-## How do I use it with in this website?
+You can run this template using `npm run dev`. Keep this running in a terminal, as Next reflects every change immediately.
 
-My website is currently powered by NextJS and TailwindCSS. To make the process of writing blogs simpler, I write them all in Markdown. Now, when I build my website (`next build`), `next` reads the MDX and passes it to a library called `next-mdx-remote`. This renders my blog's content to actual HTML, along with any styling that I provide. 
+### Project structure.
 
-That's it! Now every time I need to create a new blog, I just write down a new MDX file and I am done.
+Right now, you will see that you have some starter template in `pages/index.tsx`. Delete this. Then, create a new directory with the name `posts`. Within posts, we will have two files: `index.tsx` and `[slug].tsx`. Create another directory out of the `pages` directory, call it `lib`. Create a file called `blog.ts` within the `lib` folder. Finally, your project structure should look like this -
 
-### Code structure
+// Write about packages to install.
 
-### Api
+// Edit next config
 
-### Components
+```
+ lib                 
+└  blog.ts           
+ node_modules        
+ pages               
+│  api               
+│  posts             
+│ │  [slug].tsx      
+│ └  index.tsx       
+│  _app.tsx          
+└  index.tsx         
+ public              
+ styles              
+ next-env.d.ts       
+ next.config.js      
+ package-lock.json   
+ package.json        
+ postcss.config.js   
+ README.md           
+ tailwind.config.js  
+ tsconfig.json       
 
-## Thoughts
+```
+
+### Blog Post's Format
+
+Every blog post will be a single MDX file. Each of these files will have some metadata about the blog and this will be provided using Frontmatter. Frontmatter is just 
+
+---
 
 
+
+### The Base
+
+My website uses [Next.js](https://nextjs.org/) for SSR and [Tailwind CSS](https://tailwindcss.com) for style. The best way to start off with this setup is to use Next's official example from here [here](https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss). 
+
+> The explanation that follows may require some knowledge of Next and Tailwind, and obviously React. However, knowing just React and Typescript is good enough if you want to get the gist of what's happening.
+
+### The Process
+
+Every blog is an MDX file on disk (or potentially, wherever you want) that has a Frontmatter heading for metadata. Frontmatter is just YAML guarded between two `---`. All my blogs just have some metadata at the top that describes the blog. Here's how the Frontmatter looks like for this blog -
+
+```yaml
+---
+title: What really powers my blog?
+author: Swapnil Kumbhar
+excerpt: MDX is magic and you should be using it.
+category: Technology
+subcategory: Web
+slug: how-i-built-this
+date: Thu Mar  3 11:51:07 AM MST 2022
+---
+
+```
+
+After this comes the actual blog content. Now the process of rendering these in Next is pretty simple:
+
+1. Load the MDX file.
+2. Parse the Frontmatter metadata for the blog. 
+3. Send it to an MDX library to render the raw MDX to HTML. I use [`next-mdx-remote`](https://github.com/hashicorp/next-mdx-remote) for this.
+4. Serve the HTML 
+
+### Next Slug
+
+If you look at the Frontmatter data above, you'd see an entry called `slug`. That's the URL that will show up in the browser. In Next, this will be a [Dynamic Route](https://nextjs.org/docs/routing/dynamic-routes) for us. Naturally, we will implement the `getStaticPaths` function. Because of this, when you build the website, Next will generate all possible blogs ahead of time, save them as static data and serve them on request, making the blog really fast!
+
+To do that, we provide every slug to Next in `getStaticPaths`. In my code, I have exposed a function that reads Frontmatter of every MDX file in my `data/blog/` directory and return that as an array. 
+
+### Rendering the HTML
+
+Currently, for my blog, I have two routes. 
+
+|Route|Description|
+|---|---|
+|`/posts/`|List of all posts on the website. Sort of like a homepage|
+|`/posts/[slug]`|A particular blog, like the one you're reading. This is a Dynamic Route|
+
+The first route... is relatively simple. Let's talk about the second route that actually renders an individual blog post. In the second route, the dynamic one, we export a function called `getStaticProps`. This is a well-known function for Next and Next uses it to fetch static data that is required for rendering a page. In our case, the static data is our Blog's MDX. 
+
+> It is important to note that this function is called at *compile time*. This allows us to use Node's FS API to read files off of the disk. Note that these APIs are not available in code that is supposed to run on the client's side.
+
+In `getStaticProps`, we get data that is parsed by Frontmatter.
