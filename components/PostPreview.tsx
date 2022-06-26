@@ -38,16 +38,16 @@ export default function PostPreview({
         {/* Everything else */}
         <div className="hidden sm:block">
           <div className="border-b cursor-pointer \
-            xl:h-48 \
-            lg:h-40 lg:px-12 \
+            xl:h-44 \
+            lg:h-40 \
             md:h-32 md:px-8 \
             sm:h-28 \
           "
           >
             <div className="flex items-end">
               <h1 className="font-light \
-                xl:pt-8 xl:text-4xl xl:basis-9/12 \
-                lg:pt-6 lg:text-3xl lg:basis-8/12 \
+                xl:pt-8 xl:text-4xl \
+                lg:pt-6 lg:text-3xl \
                 md:pt-6 md:text-2xl md:basis-8-12 \
                 sm:pt-4 sm:text-xl sm:basis-8-12 \
                 "
