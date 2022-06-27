@@ -33,7 +33,7 @@ export default function Page({ source, matter }: Props) {
         description={matter.excerpt}
       />
       <div className={addClasses(styles.gcontainer, 'lg:pt-4', 'md:pt-2')}>
-        <div className="pt-6 text-4xl font-light \
+        <div className="pt-4 text-4xl font-light \
         xl:text-5xl \
         md:text-center md:text-3xl \
         lg:text-4xl \
@@ -41,7 +41,7 @@ export default function Page({ source, matter }: Props) {
         >
           {matter.title}
         </div>
-        <div className="pt-4 pb-6 text-xs font-light text-gray-500 border-b border-gray-300 \
+        <div className="pt-4 pb-6 text-xs font-light text-gray-500 border-b border-gray-200 \
           lg:pt-6 lg:pb-8 lg:text-sm md:text-xs \
           md:text-center md:pb-6 md:pt-4\
           "
