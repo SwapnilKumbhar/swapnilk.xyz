@@ -1,8 +1,8 @@
 import Image from 'next/image';
 
 type Props = {
-  src: string,
-  alt: string
+  src?: string,
+  alt?: string
 };
 
 type MdxLoaderProps = {
@@ -16,7 +16,7 @@ export default function Img({ src, alt }: Props) {
   return (
     <Image
       loader={MdxImgLoader}
-      src={src}
+      src={src ?? ''}
       alt={alt}
       layout="responsive"
       width={16}
@@ -24,3 +24,8 @@ export default function Img({ src, alt }: Props) {
     />
   );
 }
+
+Img.defaultProps = {
+  src: '',
+  alt: '',
+};

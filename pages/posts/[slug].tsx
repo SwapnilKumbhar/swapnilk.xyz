@@ -52,7 +52,10 @@ export default function Page({ source, matter }: Props) {
           {matter.category}
           .
         </div>
-        <MDXRemote {...source} components={COMPONENTS} />
+        <MDXRemote
+          {...source}
+          components={COMPONENTS}
+        />
       </div>
     </div>
   );
