@@ -1,7 +1,9 @@
+import { ReactNode } from 'react';
+
 type Props = {
-  children: string,
-  href: string,
-  title: string | null
+  children?: ReactNode,
+  href?: string,
+  title?: string
 };
 
 export default function Link({ children, href, title }: Props) {
@@ -11,3 +13,9 @@ export default function Link({ children, href, title }: Props) {
     </a>
   );
 }
+
+Link.defaultProps = {
+  children: undefined,
+  href: '',
+  title: '',
+};

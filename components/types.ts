@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 type DefaultProps = {
-  children: ReactNode
+  children?: ReactNode
 };
 
 export default DefaultProps;

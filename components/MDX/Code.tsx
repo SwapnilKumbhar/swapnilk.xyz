@@ -3,27 +3,33 @@ import { ReactNode } from 'react';
 import DefaultProps from '../types';
 
 type CodeProps = {
-  children: ReactNode,
-  className: string | undefined
+  children?: ReactNode,
+  className?: string
 };
 
-export function CodeBlock({ children }: DefaultProps) {
+// TODO: Figure out how to highlight single backtick without affecting code blocks
+export function CodeBlock({ children, className }: CodeProps) {
+  // let language = '';
+  // if (className) {
+  //   language = className.replace('language-', '');
+  // }
+  const codeClass = className ?? '';
   return (
-    <pre className="p-4 font-mono text-sm bg-gray-100 md:text-md lg:text-lg">
+    <pre className={`p-4 font-mono text-sm bg-gray-100 md:text-md lg:text-lg ${codeClass}`}>
       {children}
     </pre>
   );
 }
 
-// TODO: Figure out how to highlight single backtick without affecting code blocks
-export function Code({ children, className }: CodeProps) {
-  // let language = '';
-  // if (className) {
-  //   language = className.replace('language-', '');
-  // }
+export function Code({ children }: DefaultProps) {
   return (
-    <div className={`text-md bg-gray-100 ${className}` ?? ''}>
+    <span className="font-mono text-md">
       {children}
-    </div>
+    </span>
   );
 }
+
+CodeBlock.defaultProps = {
+  children: undefined,
+  className: '',
+};
