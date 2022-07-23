@@ -31,7 +31,7 @@ export default function Navbar({ minimal, title, description }: Props) {
   const heading = minimal
     ? (
       <Link href="/">
-        <p className="pt-4 pb-4 text-lg font-regular hover:cursor-pointer">
+        <p className="pt-4 pb-2 text-lg font-regular hover:cursor-pointer">
           Swapnil Kumbhar
         </p>
       </Link>
@@ -43,7 +43,7 @@ export default function Navbar({ minimal, title, description }: Props) {
             Swapnil Kumbhar
           </h1>
         </Link>
-        <p className="text-gray-400 xl:pb-4 md:pb-2 xl:pt-6 md:text-md sm:text-sm md:pt-4 xl:text-lg">
+        <p className="text-gray-400 xl:pb-4 md:pb-2 xl:pt-4 md:text-md sm:text-sm md:pt-4 xl:text-lg">
           {fortune}
         </p>
       </>
@@ -138,7 +138,7 @@ export default function Navbar({ minimal, title, description }: Props) {
           <Link href="/posts">
             <div className="flex py-2 border-b">
               {menuItemIcon}
-              <p className="pl-2 text-sm font-light">
+              <p className="pl-2 font-light text-md">
                 Posts
               </p>
             </div>

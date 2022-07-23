@@ -68,7 +68,7 @@ export default function ProjectPreview({
               {title}
             </h1>
             <p className="pl-4 pt-2 pb-6 font-light text-sm grow-0 \
-              xl:pt-6 \
+              xl:pt-4 \
               lg:pt-4 lg:text-lg \
               md:pt-2 md:text-md \
               "
