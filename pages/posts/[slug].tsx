@@ -1,6 +1,7 @@
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import Head from 'next/head';
+import remarkGfm from 'remark-gfm';
 import {
   initBlogPost, getAllSlugs, getPostBySlug,
 } from '../../api/blog';
@@ -91,7 +92,16 @@ export async function getStaticProps(context: { params: { slug: string; }; }) {
     return { props: {} };
   }
 
-  const source = await serialize(content.content);
+  const source = await serialize(
+    content.content,
+    {
+      mdxOptions: {
+        remarkPlugins: [remarkGfm],
+        format: 'mdx',
+      },
+    },
+
+  );
 
   return { props: { source, matter: content.data } };
 }
