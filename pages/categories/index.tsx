@@ -17,6 +17,8 @@ export default function Tags() {
       subtitle: 'Any topics with machines involved.',
       link: 'technology',
     },
+    /*
+    // Commented out so that I can add them in when I have content there.
     {
       title: 'Opinion',
       subtitle: 'My thoughts on various topics. Not facts.',
@@ -32,6 +34,7 @@ export default function Tags() {
       subtitle: 'Places I\'ve been.',
       link: 'travel',
     },
+    */
   ];
 
   const categoryPreviewTag = ({ title, subtitle, link }: CategoryPreview) => (
