@@ -19,7 +19,7 @@ MDX expands upon [Markdown](https://en.wikipedia.org/wiki/Markdown) by giving th
 
 ## How do I use MDX?
 
-To do this, let's create a simple template. Let's start from a basic TailwindCSS template. The best way to read this post is to have the code for this open in another tab or a text editor. Here's the [code](https://github.com/SwapnilKumbhar/mdxtemplate).
+To do this, let's create a simple blog. Let's start with a basic TailwindCSS template. The best way to read this post is to have the code for this open in another tab or a text editor. Here's the [code](https://github.com/SwapnilKumbhar/mdxtemplate).
 
 ```sh
 $ create-next-app --typescript --use-npm --example with-tailwindcss mdxtemplate
@@ -27,58 +27,29 @@ $ create-next-app --typescript --use-npm --example with-tailwindcss mdxtemplate
 
 You can run this template using `npm run dev`. Keep this running in a terminal, as Next reflects every change immediately.
 
-### Project structure.
+> This blog will assume some knowledge of NextJS, TailwindCSS and Typescript in the following section. Please refer to official documentation of these tools/frameworks for familiarity.
 
-Right now, you will see that you have some starter template in `pages/index.tsx`. Delete this. Then, create a new directory with the name `posts`. Within posts, we will have two files: `index.tsx` and `[slug].tsx`. Create another directory out of the `pages` directory, call it `lib`. Create a file called `blog.ts` within the `lib` folder. Finally, your project structure should look like this -
+### Project structure
 
-// Write about packages to install.
+Upon running the command above, you will see a bunch of files and folders that are pretty standard for a NextJS project. In addition to these, we will create a few new files and folders. Here's a list - 
 
-// Edit next config
+|Path|Type|Description
+|---|---|---|
+|./pages/posts/|Folder|Entrypoint for our blog under `/posts`|
+|./pages/posts/index.tsx|File|File that will be rendered when we navigate to `/posts`|
+|./pages/posts/[slug].tsx|File|Dynamic Route to any blogpost under `/posts`|
+|./data/|Folder|Folder where we will store our raw `.mdx` blogs|
+|./lib/blog.ts|File|Create a folder called `lib` and then a file called `blog.ts` within it|
 
-```
- lib                 
-└  blog.ts           
- node_modules        
- pages               
-│  api               
-│  posts             
-│ │  [slug].tsx      
-│ └  index.tsx       
-│  _app.tsx          
-└  index.tsx         
- public              
- styles              
- next-env.d.ts       
- next.config.js      
- package-lock.json   
- package.json        
- postcss.config.js   
- README.md           
- tailwind.config.js  
- tsconfig.json       
+Now, just to render our `mdx` files, we will need a few libraries. In a terminal with your project's folder open, run this command -
 
 ```
+npm install @next/mdx next-mdx-remote gray-matter
+```
 
-### Blog Post's Format
+We need the first two to render our blogs to HTML. We will use the last library to get custom metadata for each post. Every blog we write will have some metadata at the top enclosed within two `---`. This data is called `Frontmatter`. it has to be in valid YAML format for `gray-matter` to parse it. To get an idea of what you can have in this section, here's the Frontmatter for this post -
 
-Every blog post will be a single MDX file. Each of these files will have some metadata about the blog and this will be provided using Frontmatter. Frontmatter is just 
-
----
-
-
-
-### The Base
-
-My website uses [Next.js](https://nextjs.org/) for SSR and [Tailwind CSS](https://tailwindcss.com) for style. The best way to start off with this setup is to use Next's official example from here [here](https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss). 
-
-> The explanation that follows may require some knowledge of Next and Tailwind, and obviously React. However, knowing just React and Typescript is good enough if you want to get the gist of what's happening.
-
-### The Process
-
-Every blog is an MDX file on disk (or potentially, wherever you want) that has a Frontmatter heading for metadata. Frontmatter is just YAML guarded between two `---`. All my blogs just have some metadata at the top that describes the blog. Here's how the Frontmatter looks like for this blog -
-
-```yaml
----
+```
 title: What really powers my blog?
 author: Swapnil Kumbhar
 excerpt: MDX is magic and you should be using it.
@@ -86,34 +57,180 @@ category: Technology
 subcategory: Web
 slug: how-i-built-this
 date: Thu Mar  3 11:51:07 AM MST 2022
----
+```
+
+We will have something simpler like this -
+```
+title: Absolutely amazing MDX blogpost
+author: Mark Down
+slug: mdx-rules
+```
+
+### Loading MDX files
+
+This is a relatively easy part of the entire process. In our `lib/blog.ts` file, we will create a few functions to read MDX files in the `./data/` directory. After reading these files, we will send them to `gray-matter` to get their metadata. Pretty simple. Here's how that looks -
+
+```ts
+import matter from 'gray-matter';
+import fs from 'fs';
+import path from 'path';
+
+// The shape of the blog matter.
+export interface FrontMatter {
+  title: string
+  author: string
+  slug: string
+}
+
+// content is the raw blogpsot data without the metadata
+export interface BlogPost {
+  metadata: FrontMatter
+  content: string
+}
+
+const MDX_DIR = './data/blog';
+
+// All blog posts
+const POSTS: BlogPost[] = [];
+
+export async function loadMdx() {
+  // Find names of every file in the folder that ends with `.mdx`
+  // Then get their absolute paths by joining
+  const blogEntries = fs.readdirSync(MDX_DIR)
+    .filter((filename) => filename.endsWith('.mdx'))
+    .map((filename) => path.join(MDX_DIR, filename));
+
+  const blogData = blogEntries.map((file) => fs.readFileSync(file));
+
+  // Add each blog to the global POSTS list
+  blogData.forEach((file) => {
+    const frontmatter = matter(file);
+    POSTS.push({
+      metadata: frontmatter.data as FrontMatter,
+      content: frontmatter.content,
+    });
+  });
+}
+
+// Getter for all posts.
+export const getAllPosts = async (): Promise<BlogPost[]> => {
+  await loadMdx();
+  return POSTS;
+};
 
 ```
 
-After this comes the actual blog content. Now the process of rendering these in Next is pretty simple:
+That's all we need for our backend! Now to the interesting part: The Frontend.
 
-1. Load the MDX file.
-2. Parse the Frontmatter metadata for the blog. 
-3. Send it to an MDX library to render the raw MDX to HTML. I use [`next-mdx-remote`](https://github.com/hashicorp/next-mdx-remote) for this.
-4. Serve the HTML 
+### Rendering MDX files
 
-### Next Slug
+`next-mdx-remote` gives us a method called `serialize` that compiles raw MDX to HTML. This rendered HTML is passed to `<MDXRemote />`, a component in the library. 
 
-If you look at the Frontmatter data above, you'd see an entry called `slug`. That's the URL that will show up in the browser. In Next, this will be a [Dynamic Route](https://nextjs.org/docs/routing/dynamic-routes) for us. Naturally, we will implement the `getStaticPaths` function. Because of this, when you build the website, Next will generate all possible blogs ahead of time, save them as static data and serve them on request, making the blog really fast!
+> I'll be covering a few Nextjs specific details now. If you are not using Nextjs for this, you can skip the next two paragraphs.
 
-To do that, we provide every slug to Next in `getStaticPaths`. In my code, I have exposed a function that reads Frontmatter of every MDX file in my `data/blog/` directory and return that as an array. 
+To render a specific blog page, we are using Dynamic Routing. Since we are building a static blog, we can tell the routes that will exist on the blog ahead of time. This is where the `getStaticPaths()` function comes into picture. Let's say we have three blogs with paths `/blog1`, `/blog2` and `/blog3`, we can tell Next that these are our routes. When Next will build our project, it will build these routes out of the box. Pretty neat!
 
-### Rendering the HTML
+The reason we used `getStaticPaths()` was so that we could eventually use `getStaticProps()`. In this function, we will actually compile our raw MDX using the `serialize` function. Here, we will get the `slug` as a parameter, which we use for getting our raw MDX, which we send to the `serialize` function. 
 
-Currently, for my blog, I have two routes. 
+These are Nextjs specific details, so documentation for these functions would definitely make the picture clearer. But for our blog, the most important thing to understand is this flow -
 
-|Route|Description|
-|---|---|
-|`/posts/`|List of all posts on the website. Sort of like a homepage|
-|`/posts/[slug]`|A particular blog, like the one you're reading. This is a Dynamic Route|
+1. Our component gets the slug as a parameter (eg. `blog1`)
+2. We use the slug to retrive the raw MDX (using our `lib/blog.ts` API).
+3. Compile the MDX using `serialize`.
+4. Send compiled MDX to `<MDXRemote />`.
 
-The first route... is relatively simple. Let's talk about the second route that actually renders an individual blog post. In the second route, the dynamic one, we export a function called `getStaticProps`. This is a well-known function for Next and Next uses it to fetch static data that is required for rendering a page. In our case, the static data is our Blog's MDX. 
 
-> It is important to note that this function is called at *compile time*. This allows us to use Node's FS API to read files off of the disk. Note that these APIs are not available in code that is supposed to run on the client's side.
+Now we can finally write our `/posts/[slug].tsx`.
 
-In `getStaticProps`, we get data that is parsed by Frontmatter.
+First, let's build our paths and static content. If you are not using Nextjs, then just refer to the component's code in the next snippet.
+
+```ts
+// The context we receive here has params that we exported from getStaticPaths
+export async function getStaticProps(context: { params: { slug: string } }) {
+  const posts = await getAllPosts();
+
+  // Find the post that corresponds to the slug we need
+  const currentPost = posts.find((post) => post.metadata.slug === context.params.slug);
+
+  // Nullcheck. Ideally, this will never be null.
+  if (!currentPost) {
+    return {
+      props: {
+        source: '',
+        metadata: {
+          title: '404',
+          author: 'Not found',
+          slug: context.params.slug,
+        },
+      },
+    };
+  }
+
+  // serialize this using MDX's serialize
+  const compiledSource = await serialize(currentPost.content);
+
+  // return these as props. The component will consume these now.
+  return { props: { source: compiledSource, metadata: currentPost.metadata } };
+}
+
+export async function getStaticPaths() {
+  // Retrieve all slugs
+  const posts = await getAllPosts();
+
+  // construct paths
+  const paths = posts.map((post) => ({
+    params: {
+      slug: post.metadata.slug,
+    },
+  }));
+
+  // fallback false will ensure that paths will 404
+  return {
+    paths,
+    fallback: false,
+  };
+}
+```
+
+The compiled MDX data is consumed by the component, along with the FrontMatter data in the MDX file.
+
+```tsx
+type Props = {
+  source: MDXRemoteSerializeResult,
+  metadata: FrontMatter
+};
+
+// Main component
+export default function Page({ source, metadata }: Props) {
+  return (
+    <div>
+      {/* Show the title and author according to the FrontMatter data we added */}
+      <h1 className="pt-8 pb-4 text-3xl text-center">
+        {metadata.title}
+      </h1>
+      <p className="italic text-center">
+        by
+        {' '}
+        {metadata.author}
+        .
+      </p>
+      <br />
+
+      {/* Render the content of the page */}
+      <p className="container px-64 mx-auto">
+
+        <MDXRemote {...source} />
+
+      </p>
+    </div>
+  );
+}
+```
+
+Awesome! We can now render MDX into plain HTML. If we inspect this page in our browser though, we will find that our heading is in an `<h1>` tag and our paragraph is in a `<p>` tag. They are rendered as plain old HTML. Obviously, we would want to customize this and that's what we will do now.
+
+### Customization
+
+In the `<MDXRemote />` component, we can pass a `components` object that instructs the renderer on _how_ to render specific tags. Let's try to customize our `<h1>` and `<p>` tags. These are simple tags that just take `children` as props, but this methodology can be extended to other tags too. [example](https://github.com/SwapnilKumbhar/swapnilk.xyz/tree/main/components/MDX) from my blog. 
+
+
