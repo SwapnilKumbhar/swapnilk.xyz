@@ -3,3 +3,15 @@ projects:
     title: Providence
     subtitle: Kernel based auditing for Mac, BSD and Linux. Leverages the Audit Subsystem, OpenBSM (eventually) and Apple's Endpoint Security Framework
     image: 
+  - link: https://github.com/SwapnilKumbhar/cowin-alerts
+    title: Vax Alerts
+    subtitle: Alerting service that notified users on Discord if the COVID vaccine was available in their district. Helped out about 1200 people!
+    image:
+  - link: https://github.com/SwapnilKumbhar/GDBGhidra
+    title: GDBGhidra
+    subtitle: Ghidra pseudocode in your GDB session. Uses r2Ghidra and r2Pipe underneath.
+    image: 
+  - link: https://github.com/SwapnilKumbhar/swapnilk.xyz
+    title: swapnilk.xyz
+    subtitle: The website you're seeing! Powered by Typescript, Next.js and TailwindCSS.
+    image:

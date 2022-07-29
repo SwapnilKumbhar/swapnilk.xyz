@@ -23,9 +23,9 @@ export default function Home() {
         <Image
           src={home}
           height={400}
-          width={400}
+          width={300}
           className="rounded-xl"
-          alt="Hanalei Bay, Kauai."
+          alt="Big Sur, California."
         />
       </div>
 
