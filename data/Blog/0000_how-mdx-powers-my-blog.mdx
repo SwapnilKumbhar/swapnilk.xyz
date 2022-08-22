@@ -92,10 +92,10 @@ export interface BlogPost {
 
 const MDX_DIR = './data/blog';
 
-// All blog posts
-const POSTS: BlogPost[] = [];
+export async function getAllPosts() {
+  // All blog posts
+  const posts: BlogPost[] = [];
 
-export async function loadMdx() {
   // Find names of every file in the folder that ends with `.mdx`
   // Then get their absolute paths by joining
   const blogEntries = fs.readdirSync(MDX_DIR)
@@ -106,20 +106,18 @@ export async function loadMdx() {
 
   // Add each blog to the global POSTS list
   blogData.forEach((file) => {
+    // Read frontmatter
     const frontmatter = matter(file);
-    POSTS.push({
+
+    // Push to array
+    posts.push({
       metadata: frontmatter.data as FrontMatter,
       content: frontmatter.content,
     });
   });
+
+  return posts;
 }
-
-// Getter for all posts.
-export const getAllPosts = async (): Promise<BlogPost[]> => {
-  await loadMdx();
-  return POSTS;
-};
-
 ```
 
 In the mostly commented code above, we have loaded every MDX file, parsed its Frontmatter data and saved it in an array.
