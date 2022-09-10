@@ -1,5 +1,5 @@
 ---
-title: How MDX powers my blog?
+title: How MDX powers my blog
 author: Swapnil Kumbhar
 excerpt: MDX is really awesome. You should probably try it.
 category: Technology
@@ -235,7 +235,7 @@ Awesome! We can now render MDX into plain HTML. If we inspect this page in our b
 
 ### Customization
 
-In the `<MDXRemote />` component, we can pass a `components` object that instructs the renderer on _how_ to render specific tags. Let's try to customize our `<h1>` and `<p>` tags. These are simple tags that just take `children` as props, but this methodology can be extended to other tags too. [example](https://github.com/SwapnilKumbhar/swapnilk.xyz/tree/main/components/MDX) from my blog. 
+In the `<MDXRemote />` component, we can pass a `components` object that instructs the renderer on _how_ to render specific tags. Let's try to customize our `<h1>` and `<p>` tags. These are simple tags that just take `children` as props, but this methodology can be extended to other tags too. Here's an [example](https://github.com/SwapnilKumbhar/swapnilk.xyz/tree/main/components/MDX) from my blog. 
 
 At the top level, let's create a folder called `Components`. Within the folder, we will create two files: `Paragraph.tsx` and `Heading.tsx`.
 
