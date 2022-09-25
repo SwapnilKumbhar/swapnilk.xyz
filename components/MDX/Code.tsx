@@ -15,7 +15,7 @@ export function CodeBlock({ children, className }: CodeProps) {
   // }
   const codeClass = className ?? '';
   return (
-    <pre className={`p-4 font-mono text-sm bg-gray-100 md:text-md lg:text-lg ${codeClass}`}>
+    <pre className={`mt-10 mb-4 p-4 overflow-scroll font-mono text-sm bg-gray-100 md:text-md lg:text-lg ${codeClass}`}>
       {children}
     </pre>
   );

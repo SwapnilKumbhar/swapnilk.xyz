@@ -2,7 +2,10 @@ import DefaultProps from '../types';
 
 export default function P({ children }: DefaultProps) {
   return (
-    <div className="py-2 font-light leading-relaxed text-justify text-md md:py-2 lg:text-lg">
+    <div className="pt-6 font-light lg:leading-relaxed text-md \
+      lg:text-lg lg:pt-8 \
+      md:pt-8"
+    >
       {children}
     </div>
   );

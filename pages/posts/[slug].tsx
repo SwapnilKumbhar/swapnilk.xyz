@@ -42,7 +42,7 @@ export default function Page({ source, matter }: Props) {
         >
           {matter.title}
         </div>
-        <div className="pt-4 pb-6 text-xs font-light text-gray-500 border-b border-gray-200 \
+        <div className="pt-4 pb-4 text-sm font-light text-gray-600 border-b border-gray-200 \
           lg:pt-6 lg:pb-6 lg:text-sm md:text-xs \
           md:text-center md:pb-6 md:pt-4\
           "

@@ -2,4 +2,5 @@
   @apply tracking-wide text-gray-600 uppercase border-b border-dashed xl:p-1;
   @apply md:mx-1;
   @apply hover:border-solid hover:text-slate-900 hover:border-b-gray-300;
+  @apply text-sm;
 }
