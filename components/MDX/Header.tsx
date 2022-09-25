@@ -3,10 +3,10 @@ import DefaultProps from '../types';
 function H1({ children }: DefaultProps) {
   return (
     <div
-      className="pt-4 pb-2 text-3xl font-light border-b lg:text-4xl \
-        xl:pt-8 \
-        lg:pt-6 \
-        md:pt-4 md:text-3xl"
+      className="pt-10 pb-2 text-3xl font-light border-b lg:text-4xl \
+        xl:pt-16 \
+        lg:pt-12 \
+        md:pt-10 md:text-3xl"
     >
       { children }
     </div>
@@ -16,7 +16,7 @@ function H1({ children }: DefaultProps) {
 function H2({ children }: DefaultProps) {
   return (
     <div
-      className="pt-4 pb-2 text-2xl font-light border-b \
+      className="pt-8 pb-2 text-2xl font-light border-b \
       lg:pt-8 lg:pb-2 lg:text-3xl \
       md:text-2xl md:pt-2 md:pb-1"
     >

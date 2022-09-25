@@ -2,7 +2,10 @@ import DefaultProps from '../types';
 
 export function Table({ children }: DefaultProps) {
   return (
-    <table className="w-full table-fixed lg:my-4 md:my-2">
+    <table className="w-full mt-10 mb-6 table-fixed \
+    lg:mt-12 lg:mb-10\
+    md:mt-10 md:mb-8"
+    >
       {children}
     </table>
   );
