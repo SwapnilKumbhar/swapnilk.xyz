@@ -2,6 +2,7 @@ import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import Head from 'next/head';
 import remarkGfm from 'remark-gfm';
+import rehypePrism from 'rehype-prism-plus';
 import {
   initBlogPost, getAllSlugs, getPostBySlug,
 } from '../../api/blog';
@@ -96,7 +97,8 @@ export async function getStaticProps(context: { params: { slug: string; }; }) {
     content.content,
     {
       mdxOptions: {
-        remarkPlugins: [remarkGfm],
+        remarkPlugins: [[remarkGfm]],
+        rehypePlugins: [[rehypePrism, { ignoreMissing: true }]],
         format: 'mdx',
       },
     },
