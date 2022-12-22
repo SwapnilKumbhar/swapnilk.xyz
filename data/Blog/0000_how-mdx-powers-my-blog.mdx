@@ -43,7 +43,7 @@ Okay! Now let's create some scaffolding for our project. In addition to the file
 
 To render our `mdx` files, we will need a few libraries. In a terminal with your project's folder open, run this command -
 
-```
+```sh
 npm install @next/mdx next-mdx-remote gray-matter
 ```
 
@@ -51,7 +51,7 @@ We need the first two libraries to render MDX to HTML. We will use the last libr
 
 Every blog we write will have some metadata at the top enclosed within two `---`. This data is called `Frontmatter`. It has to be in valid YAML format for `gray-matter` to parse it. To get an idea of what you can have in this section, here's the Frontmatter for this post -
 
-```
+```yaml showLineNumbers
 title: What really powers my blog?
 author: Swapnil Kumbhar
 excerpt: MDX is magic and you should be using it.
@@ -62,7 +62,7 @@ date: Thu Mar  3 11:51:07 AM MST 2022
 ```
 
 For our humble blog, we will have something simpler like this -
-```
+```yaml showLineNumbers
 title: Absolutely amazing MDX blogpost
 author: Mark Down
 slug: mdx-rules
@@ -72,7 +72,7 @@ slug: mdx-rules
 
 This part is relatively easy. In our `lib/blog.ts` file, we will create a few functions to read MDX files in the `./data/` directory. After reading these files, we will send them to `gray-matter` to get their metadata. Pretty simple. Here's what that looks like -
 
-```ts
+```ts showLineNumbers
 import matter from 'gray-matter';
 import fs from 'fs';
 import path from 'path';
@@ -146,7 +146,7 @@ Now we can finally write our `/posts/[slug].tsx`.
 
 First, let's build our paths and static content. If you are not using Nextjs, then just refer to the component's code in the next snippet.
 
-```tsx
+```tsx showLineNumbers
 // The context we receive here has params that we exported from getStaticPaths
 export async function getStaticProps(context: { params: { slug: string } }) {
   const posts = await getAllPosts();
@@ -196,7 +196,7 @@ export async function getStaticPaths() {
 
 The compiled MDX data is consumed by the component, along with the FrontMatter data in the MDX file.
 
-```tsx
+```tsx showLineNumbers
 type Props = {
   source: MDXRemoteSerializeResult,
   metadata: FrontMatter
@@ -247,7 +247,7 @@ Now in each of these files, we will create the component that we want MDXRemote 
 
 I have used TailwindCSS for styling, but that is just a preference. Plain CSS would work just as well here. Here's what our files would look like - 
 
-```tsx
+```tsx showLineNumbers
 /*
  * Heading.tsx
  * ---
@@ -282,7 +282,7 @@ export function Heading2({ children }: DefaultProps) {
 ```
 
 Paragraphs - 
-```tsx
+```tsx showLineNumbers
 /*
  * Paragraph.tsx
  * ---
@@ -308,7 +308,7 @@ export default function Paragraph({ children }: DefaultProps) {
 
 Now, we just have to let our `MDXRemote` know that we need these components to be rendered in place of the default tags. To do this, we just add the `components` parameter and pass in our components. So in our `[slug].tsx` file, here's what we change -
 
-```tsx
+```tsx showLineNumbers
 // Snip
 
   <MDXRemote
