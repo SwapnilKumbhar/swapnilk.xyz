@@ -36,5 +36,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
-# Test blog
-./data/Blog/test_blog.mdx
