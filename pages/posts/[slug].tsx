@@ -21,7 +21,7 @@ type Props = {
 function generateOpenGraphTags(matter: GrayMatterData) {
   return (
     <>
-      <meta property="og:title" content={matter.title} />
+      <meta property="og:title" content={`${matter.title} | Swapnil Kumbhar`} />
       <meta property="og:url" content={`https://www.swapnilk.xyz/posts/${matter.slug}`} />
       <meta property="og:description" content={matter.excerpt} />
       {/* Still using the home src. This will change when we add splash pictures to blogs. */}
