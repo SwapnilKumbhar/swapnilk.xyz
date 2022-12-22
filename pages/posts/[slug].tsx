@@ -11,13 +11,27 @@ import COMPONENTS from '../../components/MDX/Components';
 import Navbar from '../../components/Navbar';
 import styles from '../../styles/common.module.css';
 import { addClasses } from '../../api/styles';
+import home from "../../public/home.jpg"
 
 type Props = {
   source: MDXRemoteSerializeResult,
   matter: GrayMatterData
 };
 
+function generateOpenGraphTags(matter: GrayMatterData) {
+  return (
+  <>
+    <meta property="og:title" content={matter.title} />
+    <meta property="og:url" content={`https://www.swapnilk.xyz/posts/${matter.slug}`} />
+    <meta property="og:description" content={matter.excerpt} />
+    {/* Still using the home src. This will change when we add splash pictures to blogs. */}
+    <meta property="og:image" content={`https://www.swapnilk.xyz${home.src}`} />
+  </>
+  )
+}
+
 export default function Page({ source, matter }: Props) {
+  const ogTags = generateOpenGraphTags(matter);
   return (
     <div>
       <Head>
@@ -28,6 +42,7 @@ export default function Page({ source, matter }: Props) {
           {'  '}
           {matter.author}
         </title>
+        {ogTags}
       </Head>
       <Navbar
         minimal
