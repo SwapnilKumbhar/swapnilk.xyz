@@ -17,6 +17,11 @@ export default function Tags() {
       subtitle: 'Any topics with machines involved.',
       link: 'technology',
     },
+    {
+      title: 'General',
+      subtitle: 'Things I cannot put a label on.',
+      link: 'general',
+    },
     /*
     // Commented out so that I can add them in when I have content there.
     {
