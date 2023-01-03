@@ -45,6 +45,7 @@ export async function getStaticPaths() {
     'music',
     'opinion',
     'travel',
+    'general',
   ];
 
   const paths = categories.map((c) => ({
