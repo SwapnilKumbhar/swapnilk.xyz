@@ -35,16 +35,11 @@ export default function Home() {
           Who am I?
         </h1>
         <p className={pClasses}>
-          Hi, I am Swapnil! I am a CS Grad student at Arizona State University
-          and a Researcher at
-          {' '}
-          <OutLink link="https://sefcom.asu.edu" data="SEFCOM" />
-          . I am interested in all things Security, Systems and anything
-          low-level. Here I write about a variety of things, including technology, travel, life,
+          Hi, I am Swapnil! I am a Software Developer. Here I write about a variety of things, including technology, travel, life,
           music and whatever else life is about.
         </p>
         <p className={pClasses}>
-          I love programming in C++, C, Rust, Golang, C#, x86 Assembly and Typescript! Hopefully,
+          I love programming in Typescript, Python and C#! Hopefully,
           you&apos;ll see a bunch of my projects on this website and my
           {' '}
           <OutLink link="https://github.com/SwapnilKumbhar" data="Github" />
