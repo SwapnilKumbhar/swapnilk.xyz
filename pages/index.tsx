@@ -35,8 +35,8 @@ export default function Home() {
           Who am I?
         </h1>
         <p className={pClasses}>
-          Hi, I am Swapnil! I am a Software Developer. Here I write about a variety of things, including technology, travel, life,
-          music and whatever else life is about.
+          Hi, I am Swapnil! I am a Software Developer. Here I write about a variety of things,
+          including technology, travel, life, music and whatever else life is about.
         </p>
         <p className={pClasses}>
           I love programming in Typescript, Python and C#! Hopefully,
